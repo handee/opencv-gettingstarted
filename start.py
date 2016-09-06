@@ -26,4 +26,5 @@ while True:
         cv2.destroyAllWindows()
         break
     print "Finished frame {}".format(n)
+    n=n+1
 
