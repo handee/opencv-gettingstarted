@@ -10,6 +10,7 @@ flag, img = cap.read()
 n=0; #let us have a counter
 flag, img = cap.read() # get an initial frame
 cv2.namedWindow('outputwindow') # open a window for output
+cv2.namedWindow('debugwindow') # open a window for output
 cv2.imshow('outputwindow',img) # put the image in the output window
 
 
@@ -36,20 +37,26 @@ while True:
    
 #exercise 3d: 
     grey_difference_img = cv2.cvtColor(difference_img, cv2.COLOR_BGR2GRAY)
-# threshold it to get a motion mask 
     ret,motionmask = cv2.threshold(grey_difference_img,difference_thresh,255,cv2.THRESH_BINARY)
-    output_image=motionmask.copy()  
+#exercise 4a
+    motionmask_visualisation= cv2.cvtColor(motionmask, cv2.COLOR_GRAY2BGR)
+    #output_image=motionmask_visualisation.copy()  
 # exercise 1: make it grey    
-
+    
     grey = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
 # exercise 2: import haar cascade, detect faces
     face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-    faces = face_cascade.detectMultiScale(grey, 1.3, 5)
+    faces = face_cascade.detectMultiScale(grey, 1.2, 2)
     for (x,y,w,h) in faces:
+         print "found a face"
          cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
+        # exercise 4b
+         #cv2.rectangle(motionmask_visualisation,(x,y),(x+w,y+h),(255,0,0),2)
+         #faceregion=img[y:y+h,x:x+w]
+         #motionmask_visualisation[y:y+h,x:x+w]=faceregion
 # remember to change this line so you're visualising the right one
-    #output_image=img.copy()
+    #output_image=motionmask_visualisation.copy()
+    output_image=img.copy()
     cv2.imshow('outputwindow',output_image) # put the image in the output window
 
     # wait for someone to press escape then destroy the output window 
@@ -57,4 +64,5 @@ while True:
         cv2.destroyAllWindows()
         break
     print "Finished frame {}".format(n)
+    n=n+1
 
