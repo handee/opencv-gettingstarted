@@ -35,7 +35,10 @@ while True:
     #output_image=difference_img.copy()  
    
 #exercise 3d: 
-
+    grey_difference_img = cv2.cvtColor(difference_img, cv2.COLOR_BGR2GRAY)
+# threshold it to get a motion mask 
+    ret,motionmask = cv2.threshold(grey_difference_img,difference_thresh,255,cv2.THRESH_BINARY)
+    output_image=motionmask.copy()  
 # exercise 1: make it grey    
 
     grey = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
