@@ -28,8 +28,13 @@ while True:
     cv2.accumulateWeighted(img,movingaverage,alpha) 
     res=cv2.convertScaleAbs(movingaverage)
     # show the background model 
-    output_image=res.copy()  
+    #output_image=res.copy()  
 
+# exercise 3c:
+    difference_img = cv2.absdiff(res, img)
+    #output_image=difference_img.copy()  
+   
+#exercise 3d: 
 
 # exercise 1: make it grey    
 
