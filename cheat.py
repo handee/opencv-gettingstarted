@@ -10,7 +10,6 @@ flag, img = cap.read()
 n=0; #let us have a counter
 flag, img = cap.read() # get an initial frame
 cv2.namedWindow('outputwindow') # open a window for output
-cv2.namedWindow('debugwindow') # open a window for output
 cv2.imshow('outputwindow',img) # put the image in the output window
 
 
@@ -40,7 +39,7 @@ while True:
     ret,motionmask = cv2.threshold(grey_difference_img,difference_thresh,255,cv2.THRESH_BINARY)
 #exercise 4a
     motionmask_visualisation= cv2.cvtColor(motionmask, cv2.COLOR_GRAY2BGR)
-    #output_image=motionmask_visualisation.copy()  
+    output_image=motionmask_visualisation.copy()  
 # exercise 1: make it grey    
     
     grey = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -51,12 +50,11 @@ while True:
          print "found a face"
          cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
         # exercise 4b
-         #cv2.rectangle(motionmask_visualisation,(x,y),(x+w,y+h),(255,0,0),2)
-         #faceregion=img[y:y+h,x:x+w]
-         #motionmask_visualisation[y:y+h,x:x+w]=faceregion
+         cv2.rectangle(motionmask_visualisation,(x,y),(x+w,y+h),(255,0,0),2)
+         faceregion=img[y:y+h,x:x+w]
+         motionmask_visualisation[y:y+h,x:x+w]=faceregion
 # remember to change this line so you're visualising the right one
-    #output_image=motionmask_visualisation.copy()
-    output_image=img.copy()
+    output_image=motionmask_visualisation.copy()
     cv2.imshow('outputwindow',output_image) # put the image in the output window
 
     # wait for someone to press escape then destroy the output window 
